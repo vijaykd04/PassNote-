@@ -24,12 +24,21 @@ app.post(
   stripeWebhook
 );
 
-app.use(cors(
-    {origin:"http://localhost:5173",
-        credentials:true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-    }
-))
+app.use(cors({
+    origin: function(origin, callback) {
+        const allowed = [
+            "http://localhost:5173",
+            process.env.CLIENT_URL,
+        ].filter(Boolean)
+        if (!origin || allowed.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error("Not allowed by CORS"))
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}))
 
 
 
@@ -50,7 +59,14 @@ app.use("/api/companion", companionRouter)
 
 
 
-app.listen(PORT,()=>{
+// Connect DB on every cold start (required for Vercel serverless)
+connectDb()
+
+// For local development only
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`)
-    connectDb()
-})
+  })
+}
+
+export default app
