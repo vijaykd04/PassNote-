@@ -29,7 +29,8 @@ app.use(cors({
         const allowed = [
             "http://localhost:5173",
             process.env.CLIENT_URL,
-            "https://passnote-backend.onrender.com"
+            "https://passnote-backend.onrender.com",
+            "https://pass-note.vercel.app"
         ].filter(Boolean)
         if (!origin || allowed.includes(origin)) {
             callback(null, true)
