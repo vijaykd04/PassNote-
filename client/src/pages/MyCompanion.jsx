@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-const serverUrl = "http://localhost:8000"
+const serverUrl = import.meta.env.VITE_SERVER_URL
 
 // ─── Companions ───────────────────────────────────────────────────────────────
 const COMPANIONS = {

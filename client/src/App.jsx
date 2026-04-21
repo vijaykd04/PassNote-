@@ -15,7 +15,7 @@ import QuestionPredictor from './pages/QuestionPredictor'
 import ComparePyq from './pages/ComparePyq'
 import AiTeacher from './pages/AiTeacher'
 import MyCompanion from './pages/MyCompanion'
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = import.meta.env.VITE_SERVER_URL
 
 function App() {
   const dispatch = useDispatch()
