@@ -59,14 +59,11 @@ app.use("/api/companion", companionRouter)
 
 
 
-// Connect DB on every cold start (required for Vercel serverless)
+// Connect DB and start server
 connectDb()
 
-// For local development only
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`✅ Server running on port ${PORT}`)
-  })
-}
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`)
+})
 
 export default app
